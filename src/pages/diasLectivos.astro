@@ -1,0 +1,22 @@
+---
+import Dias from "../components/Dias.astro";
+import MainLayout from "../layouts/MainLayout.astro";
+import dias from "../data/diasNoLectivos.json";
+---
+
+<MainLayout title="DiasLectivos">
+    <h1>Dias no Lectivos 23-24</h1>
+    <main>
+        <ul>
+            <Dias dia="12" mes="Do" anho="3" />{
+                dias.map((day) => (
+                    <Dias 
+                        dia={day.dia} 
+                        mes={day.mes} 
+                        anho={day.anho} />
+                )
+            )
+            }
+        </ul>
+    </main>
+</MainLayout>

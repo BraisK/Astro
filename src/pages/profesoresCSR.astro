@@ -1,0 +1,21 @@
+---
+import Menu from "../components/Menu.astro";
+import MainLayout from "../layouts/MainLayout.astro";
+---
+
+<MainLayout title="Lista de Profes CSR">
+    <h1>Lista profesores CSR</h1>
+
+    <ul id="lista-profesores"></ul>
+</MainLayout>
+<script>
+    const response = await fetch("http:/localhost:3000/profesores");
+    const profesores = await response.json();
+    const $ul = document.getElementById("lista-profesores");
+    $ul.textContent = "";
+    profesores.forEach(profesor => {
+        const $li = document.createElement("li");
+        $li.textContent = profesor.nombre;
+        $ul.appendChild($li);
+    });
+</script>

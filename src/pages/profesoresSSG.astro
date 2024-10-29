@@ -1,0 +1,14 @@
+---
+import Menu from "../components/Menu.astro";
+import MainLayout from "../layouts/MainLayout.astro";
+
+const response = await fetch("http:/localhost:3000/profesores");
+const profesores = await response.json();
+---
+
+<MainLayout title="Lista de Profes SSG">
+    <h1>Listado de profesores usando SSG</h1>
+    <ul>
+        {profesores.map((profesor) => <li>{profesor.nombre}</li>)}
+    </ul>
+</MainLayout>

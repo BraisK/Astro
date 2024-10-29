@@ -1,0 +1,32 @@
+---
+import { getCollection } from "astro:content";
+import MainLayout from "../layouts/MainLayout.astro";
+
+const books = await getCollection('books')
+---
+
+<MainLayout title="Lista de libros">
+    <h1>Lista de Libros</h1>
+    {books.map(book => {
+        const {data,slug} = book
+        const {title, author, img, readTime, stock} = data
+
+        return <article class="article">
+            <img src={img} width="200px"/>
+            <h2>{title}</h2>
+            <small>{author}</small>
+            <small>{readTime}</small>
+            <a href={`/books/${slug}`}>Leer más</a>
+        </article>
+    })
+    }
+
+</MainLayout>
+<style>
+    .article{
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 40px;   
+
+    }
+</style>

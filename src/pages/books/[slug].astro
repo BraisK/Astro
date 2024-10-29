@@ -1,0 +1,56 @@
+---
+import { getCollection } from "astro:content";
+import MainLayout from "../../layouts/MainLayout.astro";
+import { render } from "astro:content";
+
+export async function getStaticPaths() {
+    const books = await getCollection("books");
+    return books.map((book) => ({
+        params: { slug: book.slug },
+        props: { book },
+    }));
+}
+
+const { book } = Astro.props;
+const { data, slug } = book;
+const { title, author, img, readTime, stock } = data;
+const { Content } = await render(book);
+---
+
+<MainLayout title={title}>
+    <h1>{title}</h1>
+    <div class="container">
+        <img src={img} width="500 px" />
+    
+        <Content />
+    </div>
+</MainLayout>
+<style>
+    body {
+        background-color: darkcyan;
+        margin: 0;
+        padding: 20px;
+    }
+
+    h1 {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        color: #333;
+        margin-bottom: 20px;
+    }
+
+    div {
+        display: flex;
+    align-items: flex-start;
+    gap: 20px; 
+
+    }
+
+    img {
+        display: flex;
+        margin-bottom: 20px;
+        border-radius: 10px;
+    }
+</style>
